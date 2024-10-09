@@ -1061,8 +1061,7 @@ func (p *parser) readSingleLineComment() string {
 		// If the next character is \n, then it implies we have
 		// an empty line. Ignore the comments before the empty line.
 		if c := p.read(); c == '\n' {
-			str = ""
-			continue
+			break
 		} else {
 			p.unread()
 		}
@@ -1075,11 +1074,7 @@ func (p *parser) readSingleLineComment() string {
 			p.unread()
 			break
 		}
-		if len(str) > 0 {
-			str += " " + strings.TrimSpace(p.readUntilNewline())
-		} else {
-			str = strings.TrimSpace(p.readUntilNewline())
-		}
+		str += " " + strings.TrimSpace(p.readUntilNewline())
 	}
 	return str
 }
